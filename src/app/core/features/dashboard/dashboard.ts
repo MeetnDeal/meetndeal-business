@@ -10,7 +10,7 @@ import { LoginDialogComponent } from '../auth/login-dialog/login-dialog.componen
   standalone: true,
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
-  imports: [MatToolbarModule, MatButtonModule, LoginDialogComponent]
+  imports: [MatToolbarModule, MatButtonModule]
 })
 export class DashboardComponent {
   private dialog = inject(MatDialog);

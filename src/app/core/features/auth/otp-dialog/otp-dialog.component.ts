@@ -31,19 +31,21 @@ export class OtpDialogComponent {
   mobile = inject(MAT_DIALOG_DATA); // receives mobile number passed from login dialog
   private router = inject(Router);
 
-  verifyOtp(): void {
-if (this.otp !== this.expectedOtp) {
-  this.isInvalid = true;
-  alert('Oops! The OTP you entered is incorrect. Please try again.');
-  setTimeout(() => this.isInvalid = false, 3000); // clear error after 3 seconds
-  return;
-}
+verifyOtp(): void {
+  if (this.otp !== this.expectedOtp) {
+    this.isInvalid = true;
+    alert('Oops! The OTP you entered is incorrect. Please try again.');
+    setTimeout(() => this.isInvalid = false, 3000);
+    return;
+  }
 
-    this.loading = true;
+  this.loading = true;
+
   setTimeout(() => {
     this.loading = false;
-    this.dialogRef.close(true); // success flag
-    this.router.navigateByUrl('/dashboard');
+    sessionStorage.setItem('mobile', this.mobile); // ✅ Save mobile to session
+    this.dialogRef.close(true);                    // ✅ Close dialog
+    this.router.navigateByUrl('/dashboard');       // ✅ Route to Home
   }, 1000);
 }
 }
