@@ -1,3 +1,4 @@
+/* Toolbar */
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -8,44 +9,89 @@
   width: 100%;
   z-index: 10;
   background: transparent;
+  backdrop-filter: blur(6px);
 }
 
 .logo {
-  height: 40px;
+  height: 45px;
 }
 
 .spacer {
-  flex: 1 1 auto;
+  flex: 1;
 }
 
+.login-btn {
+  font-weight: 500;
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+}
+
+/* Hero Section */
 .hero-container {
-  height: 100vh;
-  width: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/dashboard_background.jpg') no-repeat center center / cover;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), 
+              url('/assets/dashboard_background.jpg') center/cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  color: white;
   text-align: center;
-  color: #fff;
   position: relative;
-  z-index: 1;
 }
 
 .headline {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: 800;
+  max-width: 800px;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.brand-highlight {
+  color: #90caf9; /* Material primary light */
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: 1.3rem;
   max-width: 600px;
+  opacity: 0.9;
+  margin-bottom: 2.5rem;
 }
 
 .cta {
   font-size: 1rem;
-  padding: 0.8rem 2rem;
+  padding: 0.9rem 2.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease-in-out;
+}
+
+.cta:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .headline {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .cta {
+    width: 90%;
+  }
+
+  .toolbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .logo {
+    height: 36px;
+  }
 }
