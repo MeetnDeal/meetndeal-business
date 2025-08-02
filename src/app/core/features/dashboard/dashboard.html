@@ -1,13 +1,13 @@
 <mat-toolbar color="transparent" class="toolbar">
   <img src="assets/logo.png" class="logo" alt="MeetnDeal" />
   <span class="spacer"></span>
-  <button mat-flat-button color="primary" class="login-btn" routerLink="/auth/login">Login</button>
+  <button mat-flat-button color="primary" class="login-btn" (click)="openLogin()">Login</button>
 </mat-toolbar>
 
 <div class="hero-container">
   <h1 class="headline">Welcome to <span class="brand-highlight">MeetnDeal</span> Partner Network</h1>
   <p class="subtitle">Join the movement. Serve your services. Grow your business.</p>
-  <button mat-raised-button color="accent" class="cta" routerLink="/register">
+  <button mat-raised-button color="accent" class="cta" (click)="openLogin()">
     Register Now
   </button>
 </div>

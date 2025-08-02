@@ -1,0 +1,48 @@
+<!-- Background overlay -->
+<div class="overlay" (click)="dialogRef.close()"></div>
+
+<!-- Main modal wrapper -->
+<div class="login-modal">
+  <div class="login-wrapper">
+
+    <!-- Close button -->
+    <button class="close-btn" (click)="dialogRef.close()">×</button>
+
+    <!-- Header -->
+    <div class="login-header">
+      <img src="assets/logo.png" alt="MeetnDeal Logo" class="logo" />
+      <h2>Welcome Back</h2>
+      <p>Enter your mobile number to continue</p>
+    </div>
+
+    <!-- Phone input -->
+    <div class="phone-input-wrapper" [ngClass]="{ 'invalid': isInvalid }">
+      <div class="country-code">
+        <img src="assets/flag.png" class="flag" alt="India Flag" />
+        <span class="code">+91</span>
+        <span class="divider">|</span>
+      </div>
+      <input
+        class="phone-input"
+        type="tel"
+        maxlength="10"
+        placeholder="Enter phone number"
+        [(ngModel)]="mobileNumber"
+        (focus)="isInvalid = false"
+      />
+    </div>
+
+    <!-- Continue Button -->
+    <button
+      mat-flat-button
+      color="primary"
+      class="submit-btn"
+      (click)="proceedToOtp()"
+      [disabled]="loading"
+    >
+      {{ loading ? 'Processing...' : 'Continue' }}
+      <div class="spinner" *ngIf="loading"></div>
+    </button>
+
+  </div>
+</div>

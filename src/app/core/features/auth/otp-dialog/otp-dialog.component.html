@@ -1,0 +1,32 @@
+<div class="overlay" (click)="dialogRef.close()"></div>
+
+<div class="login-modal">
+  <div class="login-wrapper">
+    <div class="login-header">
+      <img src="assets/logo.png" alt="MeetnDeal Logo" class="logo" />
+      <h2>Verify OTP</h2>
+      <p>Enter the 6-digit OTP sent to your mobile</p>
+    </div>
+
+    <div class="otp-input-group">
+      <input
+        type="text"
+        maxlength="6"
+        class="otp-input"
+        placeholder="123456"
+        [(ngModel)]="otp"
+        [ngClass]="{ 'invalid-input': isInvalid }"
+      />
+    </div>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="submit-btn"
+      (click)="verifyOtp()"
+      [disabled]="loading"
+    >
+      {{ loading ? 'Verifying...' : 'Submit' }}
+    </button>
+  </div>
+</div>
