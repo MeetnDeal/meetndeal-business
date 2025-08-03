@@ -39,14 +39,15 @@
 
       <app-step-b-identity-verification
         *ngIf="currentStep === 'B'"
-        [formGroup]="identityVerificationForm"
+        [form]="identityVerificationForm"
         [onFileSelect]="onFileSelect"
         [goToStep]="goToStep"
       ></app-step-b-identity-verification>
 
       <app-business-details
-        *ngIf="currentStep === 'C'"
+        *ngIf="currentStep === 'C' || currentStep === 'D' || currentStep === 'E'"
         [vendorForm]="vendorForm"
+        [currentStep]="currentStep"
         (goToStep)="goToStep($event)"
         (finalSubmit)="onFinalSubmit()"
       ></app-business-details>

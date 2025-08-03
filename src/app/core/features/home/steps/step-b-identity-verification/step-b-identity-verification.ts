@@ -20,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./step-b-identity-verification.css']
 })
 export class StepBIdentityVerificationComponent {
-  @Input() formGroup!: FormGroup;
+  @Input() form!: FormGroup;
   @Input() onFileSelect!: (event: Event, field: string) => void;
- @Input() goToStep!: (step: 'A' | 'B' | 'C' | 'D' | 'E') => void;
+  @Input() goToStep!: (step: 'A' | 'B' | 'C' | 'D' | 'E') => void;
 }
