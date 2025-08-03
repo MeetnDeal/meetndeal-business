@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StepABasicInfo } from './step-a-basic-info';
+import { StepABasicInfoComponent } from './step-a-basic-info';
 
-describe('StepABasicInfo', () => {
-  let component: StepABasicInfo;
-  let fixture: ComponentFixture<StepABasicInfo>;
+describe('StepABasicInfoComponent', () => {
+  let component: StepABasicInfoComponent;
+  let fixture: ComponentFixture<StepABasicInfoComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [StepABasicInfo]
-    })
+      await TestBed.configureTestingModule({
+        imports: [StepABasicInfoComponent]
+      })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StepABasicInfo);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+      fixture = TestBed.createComponent(StepABasicInfoComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
 
   it('should create', () => {
     expect(component).toBeTruthy();
