@@ -380,12 +380,10 @@ mat-form-field {
     min-width: auto;
     padding: 1.5rem;
     position: static;
-    order: 2;
   }
   
   .right-panel {
     min-width: auto;
-    order: 1;
   }
   
   /* Step navigation adjustments */

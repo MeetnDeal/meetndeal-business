@@ -2,66 +2,46 @@
     <h2>Step A: Basic Info</h2>
     <div class="form-grid">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Vendor ID</mat-label>
-        <input matInput [value]="tempVendorId" readonly />
-        <mat-hint>Auto-generated unique identifier</mat-hint>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Full Name *</mat-label>
+        <mat-label>Full Name</mat-label>
         <input matInput formControlName="name" placeholder="Enter your full name" />
-        <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
-        <mat-error *ngIf="form.get('name')?.hasError('minlength')">Name must be at least 2 characters</mat-error>
-        <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Name cannot exceed 50 characters</mat-error>
       </mat-form-field>
   
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Alternate Mobile Number</mat-label>
         <input matInput formControlName="alternateMobile" placeholder="Enter alternate mobile number" />
-        <mat-error *ngIf="form.get('alternateMobile')?.hasError('pattern')">Please enter a valid mobile number</mat-error>
       </mat-form-field>
   
       <div formGroupName="address" class="address-section">
         <h3>Address Details</h3>
         <div class="form-grid">
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>House Number *</mat-label>
+            <mat-label>House Number</mat-label>
             <input matInput formControlName="houseNumber" placeholder="e.g., 123" />
-            <mat-error *ngIf="form.get('address.houseNumber')?.hasError('required')">House number is required</mat-error>
-            <mat-error *ngIf="form.get('address.houseNumber')?.hasError('minlength')">House number must be at least 1 character</mat-error>
           </mat-form-field>
       
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Street Name *</mat-label>
+            <mat-label>Street Name</mat-label>
             <input matInput formControlName="street" placeholder="e.g., Main Street" />
-            <mat-error *ngIf="form.get('address.street')?.hasError('required')">Street name is required</mat-error>
-            <mat-error *ngIf="form.get('address.street')?.hasError('minlength')">Street name must be at least 2 characters</mat-error>
           </mat-form-field>
       
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>City *</mat-label>
+            <mat-label>City</mat-label>
             <input matInput formControlName="city" placeholder="e.g., Mumbai" />
-            <mat-error *ngIf="form.get('address.city')?.hasError('required')">City is required</mat-error>
-            <mat-error *ngIf="form.get('address.city')?.hasError('minlength')">City must be at least 2 characters</mat-error>
           </mat-form-field>
       
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>State *</mat-label>
+            <mat-label>State</mat-label>
             <input matInput formControlName="state" placeholder="e.g., Maharashtra" />
-            <mat-error *ngIf="form.get('address.state')?.hasError('required')">State is required</mat-error>
           </mat-form-field>
       
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Country *</mat-label>
+            <mat-label>Country</mat-label>
             <input matInput formControlName="country" placeholder="e.g., India" />
-            <mat-error *ngIf="form.get('address.country')?.hasError('required')">Country is required</mat-error>
           </mat-form-field>
       
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Pin Code *</mat-label>
+            <mat-label>Pin Code</mat-label>
             <input matInput formControlName="pinCode" placeholder="e.g., 400001" />
-            <mat-error *ngIf="form.get('address.pinCode')?.hasError('required')">Pin code is required</mat-error>
-            <mat-error *ngIf="form.get('address.pinCode')?.hasError('pattern')">Please enter a valid 6-digit pin code</mat-error>
           </mat-form-field>
       
           <mat-form-field appearance="outline" class="full-width">
@@ -79,7 +59,7 @@
     </div>
   
     <div class="step-buttons">
-      <button mat-flat-button color="primary" (click)="next.emit()" [disabled]="form.invalid">
+      <button mat-flat-button color="primary" (click)="next.emit()" [disabled]="!form.get('name')?.value || !form.get('address.houseNumber')?.value || !form.get('address.street')?.value || !form.get('address.city')?.value || !form.get('address.state')?.value || !form.get('address.pinCode')?.value">
         Next
       </button>
     </div>
