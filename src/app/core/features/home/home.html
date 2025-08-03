@@ -34,22 +34,28 @@
         *ngIf="currentStep === 'A'"
         [form]="basicInfoForm"
         (next)="goToStep('B')"
-        (fileSelected)="onFileSelect($event, 'profilePhotoUrl')"
       ></app-step-a-basic-info>
 
       <app-step-b-identity-verification
         *ngIf="currentStep === 'B'"
-        [formGroup]="identityVerificationForm"
+        [form]="identityVerificationForm"
         [onFileSelect]="onFileSelect"
         [goToStep]="goToStep"
       ></app-step-b-identity-verification>
 
       <app-business-details
-        *ngIf="currentStep === 'C'"
+        *ngIf="currentStep === 'C' || currentStep === 'D'"
         [vendorForm]="vendorForm"
+        [currentStep]="currentStep"
         (goToStep)="goToStep($event)"
-        (finalSubmit)="onFinalSubmit()"
       ></app-business-details>
+
+      <app-step-e-payment
+        *ngIf="currentStep === 'E'"
+        [form]="paymentDetailsForm"
+        (previous)="goToStep('D')"
+        (submit)="onFinalSubmit()"
+      ></app-step-e-payment>
     </form>
   </div>
 </div>

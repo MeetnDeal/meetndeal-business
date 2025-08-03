@@ -27,8 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class BusinessDetailsComponent implements OnInit {
   @Input() vendorForm!: FormGroup;
+  @Input() currentStep: 'C' | 'D' = 'C';
   @Output() goToStep = new EventEmitter<'A' | 'B' | 'C' | 'D' | 'E'>();
-  @Output() finalSubmit = new EventEmitter<void>();
 
   filteredProfessions: string[] = [];
   filteredServices: string[] = [];
@@ -68,17 +68,5 @@ export class BusinessDetailsComponent implements OnInit {
     if (file) {
       this.vendorForm.get(controlPath)?.setValue(file.name); // Replace with actual URL logic if needed
     }
-  }
-
-  onFinalSubmit() {
-    if (this.vendorForm.valid) {
-      this.finalSubmit.emit();
-    } else {
-      this.vendorForm.markAllAsTouched();
-    }
-  }
-
-  goBack() {
-    this.goToStep.emit('B');
   }
 }

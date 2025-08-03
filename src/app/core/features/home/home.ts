@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { StepABasicInfoComponent } from './steps/step-a-basic-info/step-a-basic-info';
 import { StepBIdentityVerificationComponent } from './steps/step-b-identity-verification/step-b-identity-verification';
 import { BusinessDetailsComponent } from './steps/step-c-business-details/step-c-business-details';
+import { StepEPaymentComponent } from './steps/step-e-payment/step-e-payment';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,8 @@ import { BusinessDetailsComponent } from './steps/step-c-business-details/step-c
     MatSnackBarModule,
     StepABasicInfoComponent,
     StepBIdentityVerificationComponent,
-    BusinessDetailsComponent
+    BusinessDetailsComponent,
+    StepEPaymentComponent
   ]
 })
 export class HomeComponent {
@@ -107,6 +109,10 @@ export class HomeComponent {
   
   get identityVerificationForm(): FormGroup {
     return this.vendorForm.get('identityVerification') as FormGroup;
+  }
+
+  get paymentDetailsForm(): FormGroup {
+    return this.vendorForm.get('paymentDetails') as FormGroup;
   }
 
   handleToggleChange() {

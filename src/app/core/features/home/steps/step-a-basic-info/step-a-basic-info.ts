@@ -21,9 +21,12 @@ import { MatButtonModule } from '@angular/material/button';
 export class StepABasicInfoComponent {
   @Input() form!: FormGroup;
   @Output() next = new EventEmitter<void>();
-  @Output() fileSelected = new EventEmitter<any>();
 
-  onFileChange(event: any): void {
-    this.fileSelected.emit(event);
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input?.files?.[0];
+    if (file) {
+      this.form.get('profilePhotoUrl')?.setValue(file.name);
+    }
   }
 }

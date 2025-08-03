@@ -1,0 +1,28 @@
+<div [formGroup]="form">
+  <h2>Step E: Payment Information</h2>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Account Holder Name</mat-label>
+    <input matInput formControlName="accountHolderName" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Account Number</mat-label>
+    <input matInput formControlName="accountNumber" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>IFSC Code</mat-label>
+    <input matInput formControlName="ifscCode" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>UPI ID (Optional)</mat-label>
+    <input matInput formControlName="upiId" />
+  </mat-form-field>
+
+  <div class="button-group">
+    <button mat-stroked-button color="primary" (click)="previous.emit()">Back</button>
+    <button mat-raised-button color="primary" (click)="submit.emit()" [disabled]="form.invalid">Submit</button>
+  </div>
+</div>

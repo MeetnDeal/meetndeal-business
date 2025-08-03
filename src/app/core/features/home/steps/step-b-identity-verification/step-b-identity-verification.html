@@ -1,4 +1,4 @@
-<div [formGroup]="formGroup" class="form-section">
+<div [formGroup]="form" class="form-section">
     <h2>Step B: Identity Verification</h2>
     <div class="form-grid">
       <mat-form-field appearance="outline" class="full-width">
@@ -27,10 +27,10 @@
       </div>
     </div>
   
-    <div class="step-buttons">
-      <button mat-stroked-button color="primary" (click)="goToStep('A')">Back</button>
-      <button mat-flat-button color="primary" (click)="goToStep('C')" [disabled]="formGroup.invalid">
-        Next
-      </button>
-    </div>
+      <div class="step-buttons">
+        <button mat-stroked-button color="primary" (click)="goToStep('A')">Back</button>
+        <button mat-flat-button color="primary" (click)="goToStep('C')" [disabled]="form.invalid">
+          Next
+        </button>
+      </div>
   </div>
