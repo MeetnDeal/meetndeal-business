@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StepCBusinessDetails } from './step-c-business-details';
+import { BusinessDetailsComponent } from './step-c-business-details';
 
-describe('StepCBusinessDetails', () => {
-  let component: StepCBusinessDetails;
-  let fixture: ComponentFixture<StepCBusinessDetails>;
+describe('BusinessDetailsComponent', () => {
+  let component: BusinessDetailsComponent;
+  let fixture: ComponentFixture<BusinessDetailsComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [StepCBusinessDetails]
-    })
+      await TestBed.configureTestingModule({
+        imports: [BusinessDetailsComponent]
+      })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StepCBusinessDetails);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+      fixture = TestBed.createComponent(BusinessDetailsComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
 
   it('should create', () => {
     expect(component).toBeTruthy();

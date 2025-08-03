@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class BusinessDetailsComponent implements OnInit {
   @Input() vendorForm!: FormGroup;
+  @Input() currentStep: 'C' | 'D' | 'E' = 'C';
   @Output() goToStep = new EventEmitter<'A' | 'B' | 'C' | 'D' | 'E'>();
   @Output() finalSubmit = new EventEmitter<void>();
 
@@ -76,9 +77,5 @@ export class BusinessDetailsComponent implements OnInit {
     } else {
       this.vendorForm.markAllAsTouched();
     }
-  }
-
-  goBack() {
-    this.goToStep.emit('B');
   }
 }

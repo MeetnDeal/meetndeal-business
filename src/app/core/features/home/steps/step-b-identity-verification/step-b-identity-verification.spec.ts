@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StepBIdentityVerification } from './step-b-identity-verification';
+import { StepBIdentityVerificationComponent } from './step-b-identity-verification';
 
-describe('StepBIdentityVerification', () => {
-  let component: StepBIdentityVerification;
-  let fixture: ComponentFixture<StepBIdentityVerification>;
+describe('StepBIdentityVerificationComponent', () => {
+  let component: StepBIdentityVerificationComponent;
+  let fixture: ComponentFixture<StepBIdentityVerificationComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [StepBIdentityVerification]
-    })
+      await TestBed.configureTestingModule({
+        imports: [StepBIdentityVerificationComponent]
+      })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StepBIdentityVerification);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+      fixture = TestBed.createComponent(StepBIdentityVerificationComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
 
   it('should create', () => {
     expect(component).toBeTruthy();
