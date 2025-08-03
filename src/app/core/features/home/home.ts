@@ -66,7 +66,7 @@ export class HomeComponent {
         pinCode: ['', Validators.required],
         landmark: ['']
       }),
-      profilePhotoUrl: [null, Validators.required]
+      profilePhotoUrl: [null]
     }),
     identityVerification: this.fb.group({
       aadharNumber: ['', Validators.required],
@@ -118,21 +118,25 @@ export class HomeComponent {
   handleToggleChange() {
     if (this.registrationType === 'Business') {
       this.showBusinessModal = true;
-      this.registrationType = 'Individual';
     }
+  }
+
+  continueAsIndividual() {
+    this.registrationType = 'Individual';
+    this.showBusinessModal = false;
   }
 
   onFileSelect(event: any, fieldName?: string) {
     const file = event.target?.files?.[0];
     if (file && fieldName) {
-      const control = this.vendorForm.get(`identityVerification.${fieldName}`) ||
-                      this.vendorForm.get(`businessDetails.${fieldName}`) ||
-                      this.vendorForm.get(`basicInfo.${fieldName}`);
+      const control = this.vendorForm.get(fieldName);
       if (control) control.setValue(file.name);
     }
   }
 
   goToStep(step: 'A' | 'B' | 'C' | 'D' | 'E') {
+    // Add smooth scrolling to top when changing steps
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.currentStep = step;
   }
 

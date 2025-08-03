@@ -1,54 +1,55 @@
-<div [formGroup]="vendorForm">
+<div [formGroup]="vendorForm" class="form-section">
   <!-- STEP C: Business Details -->
   <div *ngIf="currentStep === 'C'" formGroupName="businessDetails">
     <h2>Step C: Business Details</h2>
+    <div class="form-grid">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select Your Category</mat-label>
+        <mat-select formControlName="category" placeholder="Choose your business category">
+          <mat-option value="Homes">Homes</mat-option>
+          <mat-option value="Beauty">Beauty</mat-option>
+          <mat-option value="Pandit Jee">Pandit Jee</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Select Your Category</mat-label>
-      <mat-select formControlName="category">
-        <mat-option value="Homes">Homes</mat-option>
-        <mat-option value="Beauty">Beauty</mat-option>
-        <mat-option value="Pandit Jee">Pandit Jee</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select Your Profession</mat-label>
+        <mat-select formControlName="profession" placeholder="Choose your profession">
+          <mat-option *ngFor="let option of filteredProfessions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Select Your Profession</mat-label>
-      <mat-select formControlName="profession">
-        <mat-option *ngFor="let option of filteredProfessions" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select Services Offered</mat-label>
+        <mat-select formControlName="servicesOffered" multiple placeholder="Select services you offer">
+          <mat-option *ngFor="let service of filteredServices" [value]="service">
+            {{ service }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Select Services Offered</mat-label>
-      <mat-select formControlName="servicesOffered" multiple>
-        <mat-option *ngFor="let service of filteredServices" [value]="service">
-          {{ service }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Years of Experience</mat-label>
+        <mat-select formControlName="experience" placeholder="Select your experience level">
+          <mat-option value="<1 year">&lt; 1 year</mat-option>
+          <mat-option value="1-2 years">1–2 years</mat-option>
+          <mat-option value="2-3 years">2–3 years</mat-option>
+          <mat-option value="3-4 years">3–4 years</mat-option>
+          <mat-option value=">4 years">&gt; 4 years</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Years of Experience</mat-label>
-      <mat-select formControlName="experience">
-        <mat-option value="<1 year">&lt; 1 year</mat-option>
-        <mat-option value="1-2 years">1–2 years</mat-option>
-        <mat-option value="2-3 years">2–3 years</mat-option>
-        <mat-option value="3-4 years">3–4 years</mat-option>
-        <mat-option value=">4 years">&gt; 4 years</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <div class="file-upload full-width">
+        <label for="experienceCert">Upload Experience/Certifications</label>
+        <input id="experienceCert" type="file" (change)="onFileSelect($event, 'businessDetails.experienceCertUrl')" />
+      </div>
+    </div>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Upload Experience/Certifications</mat-label>
-      <input matInput type="file" (change)="onFileSelect($event, 'businessDetails.experienceCertUrl')" />
-    </mat-form-field>
-
-    <div class="button-group">
+    <div class="step-buttons">
       <button mat-stroked-button color="primary" (click)="goToStep.emit('B')">Back</button>
-      <button mat-raised-button color="primary" (click)="goToStep.emit('D')" [disabled]="vendorForm.get('businessDetails')?.invalid">
+      <button mat-flat-button color="primary" (click)="goToStep.emit('D')" [disabled]="!vendorForm.get('businessDetails.category')?.value || !vendorForm.get('businessDetails.profession')?.value || !vendorForm.get('businessDetails.servicesOffered')?.value?.length || !vendorForm.get('businessDetails.experience')?.value">
         Next
       </button>
     </div>
@@ -57,28 +58,34 @@
   <!-- STEP D: Availability -->
   <div *ngIf="currentStep === 'D'" formGroupName="availability">
     <h2>Step D: Availability</h2>
+    <div class="form-grid">
+      <div formGroupName="workingHours" class="working-hours-section">
+        <h3>Working Hours</h3>
+        <div class="form-grid">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Start Time</mat-label>
+            <input matInput formControlName="start" placeholder="e.g., 09:00 AM" />
+          </mat-form-field>
 
-    <div formGroupName="workingHours" class="time-row">
-      <mat-form-field appearance="fill" class="half-width">
-        <mat-label>Start Time</mat-label>
-        <input matInput formControlName="start" placeholder="e.g., 10:00 AM" />
-      </mat-form-field>
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>End Time</mat-label>
+            <input matInput formControlName="end" placeholder="e.g., 06:00 PM" />
+          </mat-form-field>
+        </div>
+      </div>
 
-      <mat-form-field appearance="fill" class="half-width">
-        <mat-label>End Time</mat-label>
-        <input matInput formControlName="end" placeholder="e.g., 6:00 PM" />
-      </mat-form-field>
+      <div class="emergency-section">
+        <h3>Emergency/On-Call Service</h3>
+        <mat-radio-group formControlName="onCallEmergency">
+          <mat-radio-button [value]="true">Yes</mat-radio-button>
+          <mat-radio-button [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
     </div>
 
-    <label>Emergency/On-Call Service</label>
-    <mat-radio-group formControlName="onCallEmergency">
-      <mat-radio-button [value]="true">Yes</mat-radio-button>
-      <mat-radio-button [value]="false">No</mat-radio-button>
-    </mat-radio-group>
-
-    <div class="button-group">
+    <div class="step-buttons">
       <button mat-stroked-button color="primary" (click)="goToStep.emit('C')">Back</button>
-      <button mat-raised-button color="primary" (click)="goToStep.emit('E')" [disabled]="vendorForm.get('availability')?.invalid">
+      <button mat-flat-button color="primary" (click)="goToStep.emit('E')" [disabled]="!vendorForm.get('availability.workingHours.start')?.value || !vendorForm.get('availability.workingHours.end')?.value">
         Next
       </button>
     </div>

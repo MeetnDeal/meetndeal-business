@@ -1,6 +1,7 @@
 <mat-toolbar color="primary" class="toolbar">
-  <img src="assets/logo.png" alt="MeetnDeal Logo" class="toolbar-logo" />
-  <span class="brand">MeetnDeal Dashboard</span>
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="MeetnDeal Logo" class="toolbar-logo" />
+  </div>
   <span class="spacer"></span>
   <div class="user-section" [matMenuTriggerFor]="menu">
     <div class="avatar">{{ userInitial }}</div>
@@ -67,6 +68,6 @@
     <p>We're not accepting registrations from Business Owners at the moment.</p>
     <p>You may still register as an <strong>Individual</strong>.</p>
     <p>Contact <strong>support meetndeal.com</strong> for more information.</p>
-    <button mat-flat-button color="primary" (click)="registrationType = 'Individual'; showBusinessModal = false">Continue as Individual</button>
+    <button mat-flat-button color="primary" (click)="continueAsIndividual()">Continue as Individual</button>
   </div>
 </div>

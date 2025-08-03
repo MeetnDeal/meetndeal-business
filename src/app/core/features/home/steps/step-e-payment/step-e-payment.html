@@ -1,28 +1,29 @@
-<div [formGroup]="form">
+<div [formGroup]="form" class="form-section">
   <h2>Step E: Payment Information</h2>
+  <div class="form-grid">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Account Holder Name</mat-label>
+      <input matInput formControlName="accountHolderName" placeholder="Enter account holder name" />
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Account Holder Name</mat-label>
-    <input matInput formControlName="accountHolderName" />
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Account Number</mat-label>
+      <input matInput formControlName="accountNumber" placeholder="Enter account number" />
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Account Number</mat-label>
-    <input matInput formControlName="accountNumber" />
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>IFSC Code</mat-label>
+      <input matInput formControlName="ifscCode" placeholder="Enter IFSC code" />
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>IFSC Code</mat-label>
-    <input matInput formControlName="ifscCode" />
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>UPI ID (Optional)</mat-label>
+      <input matInput formControlName="upiId" placeholder="Enter UPI ID" />
+    </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>UPI ID (Optional)</mat-label>
-    <input matInput formControlName="upiId" />
-  </mat-form-field>
-
-  <div class="button-group">
+  <div class="step-buttons">
     <button mat-stroked-button color="primary" (click)="previous.emit()">Back</button>
-    <button mat-raised-button color="primary" (click)="submit.emit()" [disabled]="form.invalid">Submit</button>
+    <button mat-flat-button color="primary" (click)="submit.emit()" [disabled]="form.invalid">Submit</button>
   </div>
 </div>

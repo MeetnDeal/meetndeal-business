@@ -29,4 +29,6 @@ export class StepABasicInfoComponent {
       this.form.get('profilePhotoUrl')?.setValue(file.name);
     }
   }
+
+
 }

@@ -66,7 +66,12 @@ export class BusinessDetailsComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const file = input?.files?.[0];
     if (file) {
-      this.vendorForm.get(controlPath)?.setValue(file.name); // Replace with actual URL logic if needed
+      const control = this.vendorForm.get(controlPath);
+      if (control) {
+        control.setValue(file.name); // Replace with actual URL logic if needed
+      }
     }
   }
+
+
 }
