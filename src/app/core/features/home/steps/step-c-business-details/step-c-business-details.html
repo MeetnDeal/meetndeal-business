@@ -1,0 +1,108 @@
+<div [formGroup]="vendorForm">
+    <!-- STEP C: Business Details -->
+    <div formGroupName="businessDetails">
+      <h2>Step C: Business Details</h2>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select Your Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option value="Homes">Homes</mat-option>
+          <mat-option value="Beauty">Beauty</mat-option>
+          <mat-option value="Pandit Jee">Pandit Jee</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select Your Profession</mat-label>
+        <mat-select formControlName="profession">
+          <mat-option *ngFor="let option of filteredProfessions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select Services Offered</mat-label>
+        <mat-select formControlName="servicesOffered" multiple>
+          <mat-option *ngFor="let service of filteredServices" [value]="service">
+            {{ service }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Years of Experience</mat-label>
+        <mat-select formControlName="experience">
+          <mat-option value="<1 year">&lt; 1 year</mat-option>
+          <mat-option value="1-2 years">1–2 years</mat-option>
+          <mat-option value="2-3 years">2–3 years</mat-option>
+          <mat-option value="3-4 years">3–4 years</mat-option>
+          <mat-option value=">4 years">&gt; 4 years</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Upload Experience/Certifications</mat-label>
+        <input matInput type="file" (change)="onFileSelect($event, 'businessDetails.experienceCertUrl')" />
+      </mat-form-field>
+    </div>
+  
+    <hr />
+  
+    <!-- STEP D: Availability -->
+    <div formGroupName="availability">
+      <h2>Step D: Availability</h2>
+  
+      <div formGroupName="workingHours" class="time-row">
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Start Time</mat-label>
+          <input matInput formControlName="start" placeholder="e.g., 10:00 AM" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>End Time</mat-label>
+          <input matInput formControlName="end" placeholder="e.g., 6:00 PM" />
+        </mat-form-field>
+      </div>
+  
+      <label>Emergency/On-Call Service</label>
+      <mat-radio-group formControlName="onCallEmergency">
+        <mat-radio-button [value]="true">Yes</mat-radio-button>
+        <mat-radio-button [value]="false">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  
+    <hr />
+  
+    <!-- STEP E: Payment Details -->
+    <div formGroupName="paymentDetails">
+      <h2>Step E: Payment Information</h2>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Account Holder Name</mat-label>
+        <input matInput formControlName="accountHolderName" />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Account Number</mat-label>
+        <input matInput formControlName="accountNumber" />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>IFSC Code</mat-label>
+        <input matInput formControlName="ifscCode" />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>UPI ID (Optional)</mat-label>
+        <input matInput formControlName="upiId" />
+      </mat-form-field>
+    </div>
+  
+    <div class="button-group">
+      <button mat-stroked-button color="primary" (click)="goBack()">Back</button>
+      <button mat-raised-button color="primary" (click)="onFinalSubmit()" [disabled]="!vendorForm.valid">
+        Submit
+      </button>
+    </div>
+  </div>

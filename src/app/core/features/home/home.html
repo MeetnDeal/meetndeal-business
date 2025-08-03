@@ -1,4 +1,3 @@
-<!-- home.html -->
 <mat-toolbar color="primary" class="toolbar">
   <img src="assets/logo.png" alt="MeetnDeal Logo" class="toolbar-logo" />
   <span class="brand">MeetnDeal Dashboard</span>
@@ -7,6 +6,7 @@
     <div class="avatar">{{ userInitial }}</div>
   </div>
 </mat-toolbar>
+
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="logout()">Logout</button>
 </mat-menu>
@@ -20,82 +20,47 @@
     </mat-radio-group>
 
     <div class="steps">
-      <div [class.active]="currentStep === 'A'">A. Basic Info</div>
-      <div [class.active]="currentStep === 'B'">B. Identity Verification</div>
-      <div [class.active]="currentStep === 'C'">C. Business Details</div>
-      <div [class.active]="currentStep === 'D'">D. Availability</div>
-      <div [class.active]="currentStep === 'E'">E. Payment</div>
+      <div [class.active]="currentStep === 'A'" (click)="goToStep('A')">A. Basic Info</div>
+      <div [class.active]="currentStep === 'B'" (click)="goToStep('B')">B. Identity Verification</div>
+      <div [class.active]="currentStep === 'C'" (click)="goToStep('C')">C. Business Details</div>
+      <div [class.active]="currentStep === 'D'" (click)="goToStep('D')">D. Availability</div>
+      <div [class.active]="currentStep === 'E'" (click)="goToStep('E')">E. Payment</div>
     </div>
   </div>
 
   <div class="right-panel">
     <form [formGroup]="vendorForm">
-      <div *ngIf="currentStep === 'A'" formGroupName="basicInfo">
-        <h2>Step A: Basic Info</h2>
+      <app-step-a-basic-info
+        *ngIf="currentStep === 'A'"
+        [form]="basicInfoForm"
+        (next)="goToStep('B')"
+        (fileSelected)="onFileSelect($event, 'profilePhotoUrl')"
+      ></app-step-a-basic-info>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Full Name</mat-label>
-          <input matInput formControlName="name" />
-        </mat-form-field>
+      <app-step-b-identity-verification
+        *ngIf="currentStep === 'B'"
+        [formGroup]="identityVerificationForm"
+        [onFileSelect]="onFileSelect"
+        [goToStep]="goToStep"
+      ></app-step-b-identity-verification>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Alternate Mobile Number</mat-label>
-          <input matInput formControlName="alternateMobile" />
-        </mat-form-field>
-
-        <div formGroupName="address">
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>House Number</mat-label>
-            <input matInput formControlName="houseNumber" />
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Street Name</mat-label>
-            <input matInput formControlName="street" />
-          </mat-form-field>
-
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>City</mat-label>
-            <input matInput formControlName="city" />
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>State</mat-label>
-            <input matInput formControlName="state" />
-          </mat-form-field>
-
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Country</mat-label>
-            <input matInput formControlName="country" />
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Pin Code</mat-label>
-            <input matInput formControlName="pinCode" />
-          </mat-form-field>
-
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Landmark</mat-label>
-            <input matInput formControlName="landmark" />
-          </mat-form-field>
-        </div>
-
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Upload Profile Photo</mat-label>
-          <input matInput type="file" (change)="onFileSelect($event)" />
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" (click)="goToStep('B')" [disabled]="vendorForm.get('basicInfo')?.invalid">
-          Next
-        </button>
-      </div>
+      <app-business-details
+        *ngIf="currentStep === 'C'"
+        [vendorForm]="vendorForm"
+        (goToStep)="goToStep($event)"
+        (finalSubmit)="onFinalSubmit()"
+      ></app-business-details>
     </form>
   </div>
 </div>
 
-<!-- Optional Modal -->
-<ng-template #businessModal>
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="showBusinessModal">
   <div class="modal">
     <h3>Business Registration Paused</h3>
-    <p>We're not accepting registrations from Business Owners at the moment. Please register as an Individual.</p>
-    <p>Contact <strong>support@meetndeal.com</strong> for more information.</p>
-    <button mat-button (click)="registrationType = 'Individual'">Continue as Individual</button>
+    <p>We're not accepting registrations from Business Owners at the moment.</p>
+    <p>You may still register as an <strong>Individual</strong>.</p>
+    <p>Contact <strong>support meetndeal.com</strong> for more information.</p>
+    <button mat-flat-button color="primary" (click)="registrationType = 'Individual'; showBusinessModal = false">Continue as Individual</button>
   </div>
-</ng-template>
+</div>

@@ -1,16 +1,17 @@
+/* ===== Toolbar Styling ===== */
 .toolbar {
   display: flex;
   justify-content: space-between;
   padding: 0 1.5rem;
 }
 
-.spacer {
-  flex: 1;
-}
-
 .brand {
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+.spacer {
+  flex: 1;
 }
 
 .user-section {
@@ -31,4 +32,201 @@
   font-weight: bold;
   font-size: 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background 0.2s ease;
+}
+
+.avatar:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 0 0 2px #3f51b5;
+}
+
+
+/* ===== Layout Containers ===== */
+.container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
+
+.left-panel {
+  flex: 1;
+  min-width: 240px;
+  background-color: #f5f5f5;
+  padding: 1.2rem;
+  border-radius: 12px;
+}
+
+.right-panel {
+  flex: 3;
+  min-width: 320px;
+}
+
+
+/* ===== Step Panel Highlighting ===== */
+.steps {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.steps div {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.steps div.active {
+  background-color: #0056d2;
+  color: white;
+  font-weight: 600;
+}
+
+
+/* ===== Form Section Styling ===== */
+.step-section {
+  padding: 2rem;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  max-width: 700px;
+  margin: auto;
+  animation: fadeInStep 0.3s ease;
+}
+
+.step-section h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #333;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+}
+
+.form-grid.full-width {
+  grid-template-columns: 1fr;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.section-divider {
+  height: 1px;
+  background-color: #eee;
+  margin: 1.5rem 0;
+}
+
+
+/* ===== File Upload Styling ===== */
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.upload-section input[type="file"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #f9f9f9;
+}
+
+
+/* ===== Step Button Styling ===== */
+.step-buttons,
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.next-btn {
+  width: 100%;
+  font-weight: 600;
+  padding: 0.9rem;
+  border-radius: 12px;
+  background-color: #0056d2;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.next-btn:hover {
+  background-color: #0040a8;
+  transform: scale(1.02);
+}
+
+
+/* ===== Business Modal Styling ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.modal p {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    flex-direction: column;
+    padding: 1.2rem;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
+  }
+
+  .step-buttons,
+  .button-group {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+
+/* ===== Animations ===== */
+@keyframes fadeInStep {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

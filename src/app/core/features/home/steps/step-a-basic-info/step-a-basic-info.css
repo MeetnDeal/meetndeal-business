@@ -1,0 +1,63 @@
+/* === Base Layout === */
+:host {
+    display: block;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
+  /* === Headings === */
+  h2 {
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* === Form Fields === */
+  .full-width {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .half-width {
+    width: calc(50% - 0.5rem);
+    margin-bottom: 1rem;
+  }
+  
+  .address-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  /* === Responsive Tweaks === */
+  @media (max-width: 768px) {
+    .half-width {
+      width: 100%;
+    }
+  
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+  
+  /* === File Upload Input === */
+  input[type="file"] {
+    border: 1px dashed #ccc;
+    padding: 10px;
+    background: #fafafa;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  /* === Button Styling === */
+  button {
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+  
+  /* === Bonus: Host Shadow Fix if needed === */
+  :host ::ng-deep .mat-form-field {
+    font-size: 14px;
+  }

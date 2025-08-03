@@ -1,0 +1,36 @@
+<div [formGroup]="formGroup" class="form-section">
+    <h2>Step B: Identity Verification</h2>
+    <div class="form-grid">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Aadhar Number</mat-label>
+        <input matInput formControlName="aadharNumber" placeholder="1234-5678-9012" />
+      </mat-form-field>
+  
+      <div class="file-upload">
+        <label for="aadharUpload">Upload Aadhar Card</label>
+        <input id="aadharUpload" type="file" (change)="onFileSelect($event, 'aadharDoc')" />
+      </div>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>PAN Number</mat-label>
+        <input matInput formControlName="panNumber" placeholder="ABCDE1234F" />
+      </mat-form-field>
+  
+      <div class="file-upload">
+        <label for="panUpload">Upload PAN Card</label>
+        <input id="panUpload" type="file" (change)="onFileSelect($event, 'panDoc')" />
+      </div>
+  
+      <div class="file-upload full-width">
+        <label for="licenseUpload">Upload Driving License (Optional)</label>
+        <input id="licenseUpload" type="file" (change)="onFileSelect($event, 'drivingLicense')" />
+      </div>
+    </div>
+  
+    <div class="step-buttons">
+      <button mat-stroked-button color="primary" (click)="goToStep('A')">Back</button>
+      <button mat-flat-button color="primary" (click)="goToStep('C')" [disabled]="formGroup.invalid">
+        Next
+      </button>
+    </div>
+  </div>
