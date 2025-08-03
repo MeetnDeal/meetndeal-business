@@ -20,12 +20,26 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class StepABasicInfoComponent {
   @Input() form!: FormGroup;
+  @Input() tempVendorId!: string;
   @Output() next = new EventEmitter<void>();
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input?.files?.[0];
     if (file) {
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+      if (!allowedTypes.includes(file.type)) {
+        alert('Please select a valid file type (JPG, PNG, PDF)');
+        return;
+      }
+      
+      // Validate file size (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size should be less than 5MB');
+        return;
+      }
+      
       this.form.get('profilePhotoUrl')?.setValue(file.name);
     }
   }

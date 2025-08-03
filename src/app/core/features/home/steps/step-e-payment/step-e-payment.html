@@ -2,24 +2,72 @@
   <h2>Step E: Payment Information</h2>
   <div class="form-grid">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Account Holder Name</mat-label>
+      <mat-label>Account Holder Name *</mat-label>
       <input matInput formControlName="accountHolderName" placeholder="Enter account holder name" />
+      <mat-error *ngIf="form.get('accountHolderName')?.hasError('required')">Account holder name is required</mat-error>
+      <mat-error *ngIf="form.get('accountHolderName')?.hasError('minlength')">Name must be at least 2 characters</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Account Number</mat-label>
+      <mat-label>Account Number *</mat-label>
       <input matInput formControlName="accountNumber" placeholder="Enter account number" />
+      <mat-error *ngIf="form.get('accountNumber')?.hasError('required')">Account number is required</mat-error>
+      <mat-error *ngIf="form.get('accountNumber')?.hasError('pattern')">Please enter a valid account number</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>IFSC Code</mat-label>
+      <mat-label>IFSC Code *</mat-label>
       <input matInput formControlName="ifscCode" placeholder="Enter IFSC code" />
+      <mat-error *ngIf="form.get('ifscCode')?.hasError('required')">IFSC code is required</mat-error>
+      <mat-error *ngIf="form.get('ifscCode')?.hasError('pattern')">Please enter a valid IFSC code</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>UPI ID (Optional)</mat-label>
       <input matInput formControlName="upiId" placeholder="Enter UPI ID" />
+      <mat-error *ngIf="form.get('upiId')?.hasError('pattern')">Please enter a valid UPI ID</mat-error>
     </mat-form-field>
+  </div>
+
+  <!-- Welcome Kit Section -->
+  <div class="welcome-kit-section">
+    <h3>Welcome Kit</h3>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>T-Shirt Size *</mat-label>
+      <mat-select formControlName="tshirtSize" placeholder="Select your t-shirt size">
+        <mat-option value="XS">XS</mat-option>
+        <mat-option value="S">S</mat-option>
+        <mat-option value="M">M</mat-option>
+        <mat-option value="L">L</mat-option>
+        <mat-option value="XL">XL</mat-option>
+        <mat-option value="XXL">XXL</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('tshirtSize')?.hasError('required')">T-shirt size is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Agreements Section -->
+  <div class="agreements-section">
+    <h3>Agreements</h3>
+    <div class="agreement-checkboxes">
+      <div class="checkbox-item">
+        <mat-checkbox formControlName="pricingPolicyAccepted" color="primary">
+          I accept the <a href="#" class="link">Pricing Policy</a> *
+        </mat-checkbox>
+        <div *ngIf="form.get('pricingPolicyAccepted')?.hasError('required')" class="checkbox-error">
+          You must accept the pricing policy
+        </div>
+      </div>
+      
+      <div class="checkbox-item">
+        <mat-checkbox formControlName="termsConditionsAccepted" color="primary">
+          I accept the <a href="#" class="link">Terms & Conditions</a> *
+        </mat-checkbox>
+        <div *ngIf="form.get('termsConditionsAccepted')?.hasError('required')" class="checkbox-error">
+          You must accept the terms and conditions
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="step-buttons">

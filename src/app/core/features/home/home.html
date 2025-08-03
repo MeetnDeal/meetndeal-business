@@ -21,11 +21,26 @@
     </mat-radio-group>
 
     <div class="steps">
-      <div [class.active]="currentStep === 'A'" (click)="goToStep('A')">A. Basic Info</div>
-      <div [class.active]="currentStep === 'B'" (click)="goToStep('B')">B. Identity Verification</div>
-      <div [class.active]="currentStep === 'C'" (click)="goToStep('C')">C. Business Details</div>
-      <div [class.active]="currentStep === 'D'" (click)="goToStep('D')">D. Availability</div>
-      <div [class.active]="currentStep === 'E'" (click)="goToStep('E')">E. Payment</div>
+      <div [class.active]="currentStep === 'A'" (click)="goToStep('A')" class="step-item">
+        <span class="step-letter">A</span>
+        <span class="step-text">Basic Info</span>
+      </div>
+      <div [class.active]="currentStep === 'B'" (click)="goToStep('B')" class="step-item">
+        <span class="step-letter">B</span>
+        <span class="step-text">Identity Verification</span>
+      </div>
+      <div [class.active]="currentStep === 'C'" (click)="goToStep('C')" class="step-item">
+        <span class="step-letter">C</span>
+        <span class="step-text">Business Details</span>
+      </div>
+      <div [class.active]="currentStep === 'D'" (click)="goToStep('D')" class="step-item">
+        <span class="step-letter">D</span>
+        <span class="step-text">Availability</span>
+      </div>
+      <div [class.active]="currentStep === 'E'" (click)="goToStep('E')" class="step-item">
+        <span class="step-letter">E</span>
+        <span class="step-text">Payment</span>
+      </div>
     </div>
   </div>
 
@@ -34,6 +49,7 @@
       <app-step-a-basic-info
         *ngIf="currentStep === 'A'"
         [form]="basicInfoForm"
+        [tempVendorId]="tempVendorId"
         (next)="goToStep('B')"
       ></app-step-a-basic-info>
 
@@ -61,7 +77,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Business Modal -->
 <div class="modal-overlay" *ngIf="showBusinessModal">
   <div class="modal">
     <h3>Business Registration Paused</h3>
@@ -69,5 +85,18 @@
     <p>You may still register as an <strong>Individual</strong>.</p>
     <p>Contact <strong>support meetndeal.com</strong> for more information.</p>
     <button mat-flat-button color="primary" (click)="continueAsIndividual()">Continue as Individual</button>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal-overlay" *ngIf="showSuccessModal">
+  <div class="modal success-modal">
+    <div class="success-icon">✓</div>
+    <h3>Registration Successful!</h3>
+    <p>Thank you for registering with MeetnDeal.</p>
+    <p>Your registration number is: <strong>{{ registrationNumber }}</strong></p>
+    <p>Your details have been sent to admin for verification.</p>
+    <p>You will receive an email confirmation shortly.</p>
+    <button mat-flat-button color="primary" (click)="closeSuccessModal()">Start New Registration</button>
   </div>
 </div>
