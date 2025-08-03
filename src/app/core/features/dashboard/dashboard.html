@@ -1,13 +1,35 @@
 <mat-toolbar color="transparent" class="toolbar">
   <img src="assets/logo.png" class="logo" alt="MeetnDeal" />
   <span class="spacer"></span>
-  <button mat-flat-button color="primary" class="login-btn" (click)="openLogin()">Login</button>
+  <ng-container *ngIf="!isLoggedIn; else loggedInBlock">
+    <button mat-flat-button color="primary" class="login-btn" (click)="openLogin()">Login</button>
+  </ng-container>
+  <ng-template #loggedInBlock>
+    <div class="user-info">
+      <span class="user-mobile">{{ userMobile }}</span>
+      <button mat-icon-button (click)="logout()" title="Logout">
+        <span class="material-icons">logout</span>
+      </button>
+    </div>
+  </ng-template>
 </mat-toolbar>
 
 <div class="hero-container">
   <h1 class="headline">Welcome to <span class="brand-highlight">MeetnDeal</span> Partner Network</h1>
   <p class="subtitle">Join the movement. Serve your services. Grow your business.</p>
-  <button mat-raised-button color="accent" class="cta" (click)="openLogin()">
-    Register Now
-  </button>
+  <ng-container *ngIf="!isLoggedIn; else loggedInActions">
+    <button mat-raised-button color="accent" class="cta" (click)="openLogin()">
+      Register Now
+    </button>
+  </ng-container>
+  <ng-template #loggedInActions>
+    <div class="dashboard-actions">
+      <button mat-raised-button color="primary" class="cta" (click)="register()">
+        Register as Individual/Business Partner
+      </button>
+      <button mat-stroked-button color="primary" class="cta" (click)="viewApplication()">
+        View Existing Application
+      </button>
+    </div>
+  </ng-template>
 </div>
