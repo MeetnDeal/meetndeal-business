@@ -25,11 +25,16 @@
       <input
         class="phone-input"
         type="tel"
-        maxlength="10"
-        placeholder="Enter phone number"
+        maxlength="15"
+        placeholder="Enter 10-digit mobile number"
         [(ngModel)]="mobileNumber"
-        (focus)="isInvalid = false"
+        (focus)="isInvalid = false; errorMessage = ''"
       />
+    </div>
+
+    <!-- Error message -->
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
     </div>
 
     <!-- Continue Button -->

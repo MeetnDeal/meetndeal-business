@@ -2,8 +2,12 @@ import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
 import { LoginDialogComponent } from '../auth/login-dialog/login-dialog.component';
 
@@ -12,18 +16,25 @@ import { LoginDialogComponent } from '../auth/login-dialog/login-dialog.componen
   standalone: true,
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
-  imports: [CommonModule, MatToolbarModule, MatButtonModule]
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, MatDividerModule]
 })
 export class DashboardComponent {
   private dialog = inject(MatDialog);
   private router = inject(Router);
+  private apiService = inject(ApiService);
+
+  userInitial = 'S'; // Default initial
 
   get isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('mobile');
+    return this.apiService.isAuthenticated();
   }
 
   get userMobile(): string | null {
     return sessionStorage.getItem('mobile');
+  }
+
+  get vendorId(): string | null {
+    return this.apiService.getVendorId();
   }
 
   openLogin(): void {
@@ -37,15 +48,19 @@ export class DashboardComponent {
   }
 
   register(): void {
-    this.router.navigateByUrl('/dashboard'); // or '/register' if you want a separate route
+    this.router.navigateByUrl('/business-registration');
   }
 
   viewApplication(): void {
-    this.router.navigateByUrl('/application'); // Placeholder, implement this route/component
+    this.router.navigateByUrl('/application');
   }
 
   logout(): void {
-    sessionStorage.removeItem('mobile');
-    this.router.navigateByUrl('/');
+    this.apiService.logout();
+    this.router.navigateByUrl('/join-us-partner');
+  }
+
+  goToMainPage(): void {
+    this.router.navigateByUrl('/join-us-partner');
   }
 }

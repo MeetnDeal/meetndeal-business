@@ -1,22 +1,25 @@
-/* ===== Toolbar Styling ===== */
+/* Toolbar Styles */
 .toolbar {
+  background: linear-gradient(135deg, #0056d2 0%, #0044aa 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  height: 70px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  justify-content: space-between;
 }
 
 .logo-container {
-  display: flex;
-  align-items: center;
-  padding: 8px 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.logo-container:hover {
+  transform: scale(1.05);
 }
 
 .toolbar-logo {
   height: 40px;
-  width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
@@ -51,6 +54,47 @@
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   transform: translateY(-1px);
+}
+
+/* Profile Menu */
+.profile-menu {
+  min-width: 200px;
+}
+
+.menu-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.menu-user-info {
+  flex: 1;
+}
+
+.menu-vendor-id {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.menu-mobile {
+  font-size: 0.75rem;
+  color: #666;
 }
 
 

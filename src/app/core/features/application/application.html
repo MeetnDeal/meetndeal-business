@@ -1,0 +1,66 @@
+<mat-toolbar color="primary" class="toolbar">
+  <div class="logo-container" (click)="goBack()">
+    <img src="assets/logo.png" alt="MeetnDeal Logo" class="toolbar-logo" />
+  </div>
+  <span class="spacer"></span>
+  <div class="user-section">
+    <div class="user-info">
+      <div class="user-details">
+        <div class="vendor-id">ID: {{ vendorId }}</div>
+        <div class="mobile">{{ userMobile }}</div>
+      </div>
+      <button mat-icon-button (click)="logout()" class="logout-btn">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<div class="container">
+  <div class="application-card">
+    <div class="card-header">
+      <h2>Application Status</h2>
+      <p>Check your business registration status</p>
+    </div>
+
+    <div class="status-content" *ngIf="applicationStatus.hasApplication; else noApplication">
+      <!-- Application exists -->
+      <div class="status-success">
+        <div class="status-icon">✓</div>
+        <h3>Application Submitted</h3>
+        <div class="application-details">
+          <div class="detail-item">
+            <strong>Registration Number:</strong> {{ applicationStatus.registrationNumber }}
+          </div>
+          <div class="detail-item">
+            <strong>Status:</strong> 
+            <span class="status-badge pending">Under Review</span>
+          </div>
+          <div class="detail-item">
+            <strong>Submitted Date:</strong> {{ applicationStatus.submittedDate }}
+          </div>
+        </div>
+        <p class="status-message">
+          Your application has been submitted successfully and is currently under review. 
+          You will receive updates via SMS/Email.
+        </p>
+      </div>
+    </div>
+
+    <ng-template #noApplication>
+      <!-- No application found -->
+      <div class="status-empty">
+        <div class="empty-icon">📋</div>
+        <h3>No Applications Found</h3>
+        <p class="empty-message">
+          You haven't submitted any business registration applications yet.
+        </p>
+        <div class="action-buttons">
+          <button mat-flat-button color="primary" (click)="goBack()">
+            Register as Business Partner
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div> 

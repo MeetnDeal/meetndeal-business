@@ -16,7 +16,13 @@
         placeholder="123456"
         [(ngModel)]="otp"
         [ngClass]="{ 'invalid-input': isInvalid }"
+        (focus)="isInvalid = false; errorMessage = ''"
       />
+    </div>
+
+    <!-- Error message -->
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
     </div>
 
     <button

@@ -12,18 +12,98 @@
   backdrop-filter: blur(6px);
 }
 
-.logo {
+.logo-container {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.logo-container:hover {
+  transform: scale(1.05);
+}
+
+.toolbar-logo {
   height: 45px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .spacer {
   flex: 1;
 }
 
+.user-section {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #3f51b5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.avatar:hover {
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: translateY(-1px);
+}
+
 .login-btn {
   font-weight: 500;
   border-radius: 999px;
   padding: 0.5rem 1.2rem;
+}
+
+/* Profile Menu */
+.profile-menu {
+  min-width: 200px;
+}
+
+.menu-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.menu-user-info {
+  flex: 1;
+}
+
+.menu-vendor-id {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.menu-mobile {
+  font-size: 0.75rem;
+  color: #666;
 }
 
 /* Hero Section */
@@ -73,27 +153,6 @@
   transform: scale(1.05);
 }
 
-/* User info (top right) */
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-  padding: 0.2rem 0.8rem 0.2rem 1rem;
-  font-weight: 500;
-  color: #222;
-}
-.user-mobile {
-  font-size: 1rem;
-  color: #222;
-  letter-spacing: 0.5px;
-}
-.user-info button {
-  color: #1976d2;
-  background: transparent;
-}
-
 /* Dashboard actions */
 .dashboard-actions {
   display: flex;
@@ -102,6 +161,7 @@
   justify-content: center;
   margin-top: 2.5rem;
 }
+
 .dashboard-actions .cta {
   margin: 0;
   min-width: 220px;
@@ -128,21 +188,21 @@
   .logo {
     height: 36px;
   }
+
   .dashboard-actions {
     flex-direction: column;
     gap: 1.2rem;
     width: 100%;
     align-items: center;
   }
+  
   .dashboard-actions .cta {
     width: 90%;
     min-width: unset;
   }
-  .user-info {
+  
+  .avatar {
     padding: 0.2rem 0.6rem 0.2rem 0.8rem;
-    font-size: 0.95rem;
-  }
-  .user-mobile {
     font-size: 0.95rem;
   }
 }

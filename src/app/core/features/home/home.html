@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="toolbar">
-  <div class="logo-container">
+  <div class="logo-container" (click)="goToMainPage()">
     <img src="assets/logo.png" alt="MeetnDeal Logo" class="toolbar-logo" />
   </div>
   <span class="spacer"></span>
@@ -8,8 +8,19 @@
   </div>
 </mat-toolbar>
 
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="logout()">Logout</button>
+<mat-menu #menu="matMenu" class="profile-menu">
+  <div class="menu-header">
+    <div class="menu-avatar">{{ userInitial }}</div>
+    <div class="menu-user-info">
+      <div class="menu-vendor-id">ID: {{ tempVendorId }}</div>
+      <div class="menu-mobile">{{ userMobile }}</div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
 </mat-menu>
 
 <div class="container">

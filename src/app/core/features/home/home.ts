@@ -6,32 +6,31 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
-// Import step components
 import { StepABasicInfoComponent } from './steps/step-a-basic-info/step-a-basic-info';
 import { StepBIdentityVerificationComponent } from './steps/step-b-identity-verification/step-b-identity-verification';
 import { BusinessDetailsComponent } from './steps/step-c-business-details/step-c-business-details';
 import { StepEPaymentComponent } from './steps/step-e-payment/step-e-payment';
+import { ApiService, RegistrationRequest } from '../../services/api.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  templateUrl: './home.html',
-  styleUrls: ['./home.css'],
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -41,20 +40,32 @@ import { StepEPaymentComponent } from './steps/step-e-payment/step-e-payment';
     StepBIdentityVerificationComponent,
     BusinessDetailsComponent,
     StepEPaymentComponent
-  ]
+  ],
+  templateUrl: './home.html',
+  styleUrls: ['./home.css']
 })
 export class HomeComponent {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
+  private apiService = inject(ApiService);
 
-  userInitial = 'S';
-  registrationType: 'Individual' | 'Business' = 'Individual';
   currentStep: 'A' | 'B' | 'C' | 'D' | 'E' = 'A';
+  registrationType = 'Individual';
   showBusinessModal = false;
+  showSuccessModal = false;
+  registrationNumber = '';
+  userInitial = 'S'; // Default initial
 
-  tempVendorId = '5162144192607717'; // Auto-generated unique ID
-  
+  get userMobile(): string | null {
+    return sessionStorage.getItem('mobile');
+  }
+
+  // Get vendor ID from API service
+  get tempVendorId(): string {
+    return this.apiService.getVendorId() || '5162144192607717'; // Fallback to mock ID
+  }
+
   vendorForm: FormGroup = this.fb.group({
     basicInfo: this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
@@ -105,10 +116,11 @@ export class HomeComponent {
       termsConditionsAccepted: [false, [Validators.requiredTrue]]
     })
   });
+
   get basicInfoForm(): FormGroup {
     return this.vendorForm.get('basicInfo') as FormGroup;
   }
-  
+
   get identityVerificationForm(): FormGroup {
     return this.vendorForm.get('identityVerification') as FormGroup;
   }
@@ -171,30 +183,80 @@ export class HomeComponent {
     this.currentStep = step;
   }
 
-  showSuccessModal = false;
-  registrationNumber = '';
-
   onFinalSubmit() {
     if (this.vendorForm.valid) {
       // Prepare the payload according to the API structure
-      const payload = {
+      const formValue = this.vendorForm.value;
+      
+      const payload: RegistrationRequest = {
         tempVendorId: this.tempVendorId,
-        basicInfo: this.vendorForm.get('basicInfo')?.value,
-        identityVerification: this.vendorForm.get('identityVerification')?.value,
-        businessDetails: this.vendorForm.get('businessDetails')?.value,
-        availability: this.vendorForm.get('availability')?.value,
-        paymentDetails: this.vendorForm.get('paymentDetails')?.value,
-        welcomeKit: this.vendorForm.get('welcomeKit')?.value,
-        agreements: this.vendorForm.get('agreements')?.value
+        basicInfo: {
+          name: formValue.basicInfo.name,
+          alternateMobile: formValue.basicInfo.alternateMobile,
+          address: {
+            houseNumber: formValue.basicInfo.address.houseNumber,
+            street: formValue.basicInfo.address.street,
+            city: formValue.basicInfo.address.city,
+            state: formValue.basicInfo.address.state,
+            country: formValue.basicInfo.address.country,
+            pinCode: formValue.basicInfo.address.pinCode,
+            landmark: formValue.basicInfo.address.landmark
+          },
+          profilePhotoUrl: formValue.basicInfo.profilePhotoUrl
+        },
+        identityVerification: {
+          aadharNumber: formValue.identityVerification.aadharNumber,
+          aadharDocUrl: formValue.identityVerification.aadharDocUrl,
+          panNumber: formValue.identityVerification.panNumber,
+          panDocUrl: formValue.identityVerification.panDocUrl,
+          drivingLicenseUrl: formValue.identityVerification.drivingLicenseUrl
+        },
+        businessDetails: {
+          category: formValue.businessDetails.category,
+          profession: formValue.businessDetails.profession,
+          services: formValue.businessDetails.servicesOffered.map((service: string, index: number) => ({
+            serviceId: `SVC${String(index + 1).padStart(4, '0')}`,
+            serviceName: service
+          })),
+          experience: formValue.businessDetails.experience,
+          experienceCertUrl: formValue.businessDetails.experienceCertUrl
+        },
+        availability: {
+          workingHours: {
+            start: formValue.availability.workingHours.start,
+            end: formValue.availability.workingHours.end
+          },
+          onCallEmergency: formValue.availability.onCallEmergency
+        },
+        paymentDetails: {
+          accountHolderName: formValue.paymentDetails.accountHolderName,
+          accountNumber: formValue.paymentDetails.accountNumber,
+          ifscCode: formValue.paymentDetails.ifscCode,
+          upiId: formValue.paymentDetails.upiId
+        },
+        welcomeKit: {
+          tshirtSize: formValue.welcomeKit.tshirtSize
+        },
+        agreements: {
+          pricingPolicyAccepted: formValue.agreements.pricingPolicyAccepted,
+          termsConditionsAccepted: formValue.agreements.termsConditionsAccepted
+        }
       };
       
-      console.log('Form Submitted:', payload);
+      console.log('Registration payload:', payload);
       
-      // Mock API response
-      setTimeout(() => {
-        this.registrationNumber = '250331079009';
-        this.showSuccessModal = true;
-      }, 1000);
+      // Call registration API
+      this.apiService.register(payload).subscribe({
+        next: (response) => {
+          console.log('Registration response:', response);
+          this.registrationNumber = response.data.registration_number;
+          this.showSuccessModal = true;
+        },
+        error: (error) => {
+          console.error('Registration error:', error);
+          this.snackBar.open(error.message || 'Registration failed. Please try again.', 'Close', { duration: 4000 });
+        }
+      });
     } else {
       this.vendorForm.markAllAsTouched();
       this.snackBar.open('Please complete all required fields before submitting.', 'Okay', { duration: 4000 });
@@ -203,13 +265,18 @@ export class HomeComponent {
 
   closeSuccessModal() {
     this.showSuccessModal = false;
-    // Reset form and go to step A
+    // Reset form and go to dashboard
     this.vendorForm.reset();
     this.currentStep = 'A';
+    this.router.navigateByUrl('/join-us-partner');
   }
 
   logout() {
-    sessionStorage.clear();
-    this.router.navigateByUrl('/');
+    this.apiService.logout();
+    this.router.navigateByUrl('/join-us-partner');
+  }
+
+  goToMainPage() {
+    this.router.navigateByUrl('/join-us-partner');
   }
 }
